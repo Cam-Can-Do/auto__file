@@ -1,0 +1,3 @@
+~/cs/cs/python/su23/auto_file/source/pool
+tests__ ~/Desktop/tests/
+edu__ ~/Desktop/edu/

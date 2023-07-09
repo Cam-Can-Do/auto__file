@@ -3,53 +3,62 @@ import shutil
 from pathlib import Path
 import re
 import time
+from pytrie import StringTrie
 
 class Filer:
-
-    home_dir_pattern = r'^.*~/'
-    flag_pattern = r'^.*?__'
-    flag_dir_map = {}
-
-    source_input = ""
+    flag_pattern = r'[^_]+__'
+    flag_dir_trie = StringTrie()
     source_dir = ""
 
     def __init__(self, conf_file):
-
         with open(conf_file, 'r') as fin:
             self.source_input = fin.readline().strip()
-            self.source_dir = Path(os.path.join(os.path.expanduser("~"), re.sub(self.home_dir_pattern,'', self.source_input)))
+            self.source_dir = Path(self.source_input).expanduser()
 
-            next(fin)
             for line in fin.readlines():
                 flag, conf_path = line.split(' ')
-                self.flag_dir_map[flag] = Path(os.path.join(os.path.expanduser("~"), re.sub(self.home_dir_pattern,'', conf_path.strip())))
-        
+                self.flag_dir_trie[flag] = conf_path.strip()
+
+            for key, val in self.flag_dir_trie.items():
+                print(f"{key}, {val}")
 
     def run(self):
         while True:
-            files = os.listdir(self.source_dir)     # list the files in source_dir
+            files = os.listdir(self.source_dir)
             for filename in files:
-                new_flag_key = ""
-                dest_dir = ""   # destination dir; where the file is to be sent
-                reduced_name = filename 
-                match = re.search(self.flag_pattern, filename)
-                while match:   # while flag pattern is contained in the filename...
+                remaining_flags = ""
+                flag_matches = re.findall(self.flag_pattern, filename)
+                if not flag_matches:
+                    continue
 
-                    if match.group(0) in flag_dir_map:  # if the matching flag is already in our map
-                        reduced_name = (re.sub(flag_pattern, '', filename)).strip()
-                        dest_dir.join("/", flag_dir_map[match_str])
-                        filename = filename[]
-                    else:
-                        new_flag_key += str(match)
+                last_flag = flag_matches[-1]
+                last_flag_index = filename.rfind(last_flag) + len(last_flag)
+                new_name = filename[last_flag_index:]
 
-                        if len(dest_dir) > 0:   # initialize destination with home dir if empty
-                            dest_dir = Path(os.path.expanduser("~"))
+                print(f"FLAG_MATCHES: {flag_matches}")
+                dest_dir = "~/"
+                for i in range(len(flag_matches) - 1, -1, -1):
+                    print(f"i: {i}")
+                    print(f"flag match: {flag_matches[i]}")
+                    contained_flags = "".join(flag_matches[:i])
+                    print(f"CONTAINED_FLAGS: {contained_flags}")
+                    '''
+                    if contained_flags not in self.flag_dir_trie:
+                        continue
+                    '''
 
+                    remaining_flags = "".join(flag_matches[i:])
+                    print(f"REMAINING_FLAGS: {remaining_flags}")
+                    remaining_dir = remaining_flags.replace("__", "/")
+                    print(remaining_dir)
+                    contained_dir = self.flag_dir_trie[contained_flags] if len(contained_flags) > 0 else "~/"
+                    dest_dir = contained_dir + remaining_dir + new_name
+                    break
 
-                flag_dir_map["new_flag_key"] = dest_dir     # add our new path to our known paths 
-                new_file = dest_dir / reduced_name
-                shutil.move(str(start_file), str(new_file))
+                dest_path = Path(dest_dir).expanduser()
 
-                time.sleep(.01)
+                os.makedirs(os.path.dirname(dest_path), exist_ok=True)
 
+                shutil.move(os.path.join(str(self.source_dir), filename), dest_path)
 
+            time.sleep(0.01)
