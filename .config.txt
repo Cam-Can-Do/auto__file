@@ -1,3 +1,8 @@
 ~/cs/cs/python/su23/auto_file/source/pool
 tests__ ~/Desktop/tests/
 edu__ ~/Desktop/edu/
+hmm__ ~/hmmmm/
+hmm__AHH__ ~/hmmmm/AHH/
+hmm__test__ ~/hmmmm/test/
+hmm__test__123__ ~/hmmmm/test/123/
+hmm__test__123__AHH__ ~/hmmmm/test/123/AHH/
