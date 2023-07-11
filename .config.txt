@@ -13,8 +13,3 @@
 #
 # FORMAT:   flag__flag2__/->/~/destination-path/
 # ---------------------------------------------------------------------------
-
-transcript__/->/~/school/school/colleges/my_transcripts/
-
-100 gecs__/->/~/Music/Audio/Songs/Hyperpop/100_gecs/
-testfolder__/->/~/
