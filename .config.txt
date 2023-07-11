@@ -1,3 +1,20 @@
-~/cs/cs/python/su23/auto_file/source/pool
-# lines that begin with "#" are comments, they're ignored
-test__hmm__123 ~/whaaat/123__ ~/
+# auto__file configuration file!
+# Lines that begin with "#" are comments (inline comments not supported).
+# ---------------------------------------------------------------------------
+# First non-commented line of the config is the path of the source directory:
+
+~/auto
+
+# ---------------------------------------------------------------------------
+
+# Remaining lines create flag-path entries when the program is ran.
+# Path must be within user's home directory 
+#   (create sym. links for external locations)
+#
+# FORMAT:   flag__flag2__/->/~/destination-path/
+# ---------------------------------------------------------------------------
+
+transcript__/->/~/school/school/colleges/my_transcripts/
+
+100 gecs__/->/~/Music/Audio/Songs/Hyperpop/100_gecs/
+testfolder__/->/~/
