@@ -4,6 +4,7 @@ from pathlib import Path
 import re
 import time
 import logging
+import argparse
 from pytrie import StringTrie
 
 class Filer:
@@ -122,5 +123,9 @@ class Filer:
 
 # Run program
 if __name__ == "__main__":
-    instance = Filer('.config.txt')
+    parser = argparse.ArgumentParser(description="Path to config file.")
+    parser.add_argument('config_file', help='Path to the configuration file')
+    args = parser.parse_args()
+    config_file_path = args.config_file
+    instance = Filer(config_file_path)
     instance.run()
