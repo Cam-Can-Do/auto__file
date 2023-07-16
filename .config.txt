@@ -1,15 +1,21 @@
 # auto__file configuration file!
 # Lines that begin with "#" are comments (inline comments not supported).
-# ---------------------------------------------------------------------------
-# First non-commented line of the config is the path of the source directory:
-
-~/auto
-
-# ---------------------------------------------------------------------------
-
+# ------------------------------------------------------------------------------
+# First non-commented line of the config is the path of the source directory.
+# ------------------------------------------------------------------------------
 # Remaining lines create flag-path entries when the program is ran.
 # Path must be within user's home directory 
 #   (create sym. links for external locations)
+# ------------------------------------------------------------------------------
+# Example Config:   
+#   ~/auto          # source directory, where the program should look for files
+#   documents__/->/~/Documents/                                        # A rule
+#   documents__/transcripts__/->/~/Documents/school/transcripts/  # Another rule
 #
-# FORMAT:   flag__flag2__/->/~/destination-path/
-# ---------------------------------------------------------------------------
+# Example run:
+#  ~/auto/documents__transcripts__2023__example.txt
+#                   moved to:
+#  ~/Documents/school/transcripts/2023/example.txt
+# ------------------------------------------------------------------------------
+
+~/auto
