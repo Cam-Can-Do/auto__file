@@ -68,6 +68,7 @@ class Filer:
                 # everything between (including) the first and last flags
                 all_flags = filename[first_flag_index:last_flag_index]
 
+
                 # consecutuve flags already present in self.__flag_dir_trie
                 contained_flags = ""
                 # flags not yet recorded
@@ -75,13 +76,14 @@ class Filer:
 
                 # starting at the last flag, find the longest series of 
                 # consecutive flags that's in the trie
-                for i in range(len(flag_matches) - 1, -1, -1):
+                for i in range(len(flag_matches), -1, -1):
                     candidate_flags = "".join(flag_matches[:i])
                     if candidate_flags not in self.__flag_dir_trie:
                         continue
-                    contained_flags = candidate_flags
-                    remaining_flags = "".join(flag_matches[i:])
-                    break
+                    else:   # if current candidate flags are in the trie
+                        contained_flags = candidate_flags
+                        remaining_flags = "".join(flag_matches[i:])
+                        break
 
                 # set contained_flags -- if none, needs to be "~/"" for the path's start
                 if len(contained_flags) > 0:
